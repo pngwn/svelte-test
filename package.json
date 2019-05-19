@@ -1,0 +1,27 @@
+{
+  "name": "svelte-test",
+  "description": "testing utilities for svelte",
+  "version": "0.0.1",
+  "main": "transform.js",
+  "scripts": {
+   
+    "jest:watch": "jest --watchAll --no-cache"
+  },
+  "dependencies": {
+    "cosmiconfig": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/runtime": "^7.0.0",
+    "babel-jest": "^24.8.0",
+    "dom-testing-library": "^4.0.1",
+    "just-merge": "^1.1.0",
+    "less": "^3.9.0",
+    "svelte": "^3.0.0",
+    "jest": "^24.8.0"
+
+  }
+}
