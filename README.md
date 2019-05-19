@@ -4,7 +4,7 @@ Testing utilities for Svelte. Currently contains only a Jest transform for Svelt
 
 ---
 
-# svelte-test/transform
+## svelte-test/transform
 
 Install `jest` and `svelte-test`.
 
