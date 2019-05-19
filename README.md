@@ -2,7 +2,9 @@
 
 Testing utilities for Svelte. Currently contains only a Jest transform for Svelte components that supports Svelte Preprocessors.
 
-## jest transform
+---
+
+# svelte-test/transform
 
 Install `jest` and `svelte-test`.
 
@@ -29,6 +31,8 @@ module.exports = {
 };
 ```
 
+### babel?
+
 You will probably need to install babel as well, to save you a lifetime of hell I will provide basic instructions.
 
 Install `babel-jest`, `@babel/core`, and `@babel/preset-env`.
@@ -54,6 +58,8 @@ module.exports = function (api) {
   };
 };
 ```
+
+### success!
 
 You can now do this in your tests:
 
