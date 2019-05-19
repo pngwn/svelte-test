@@ -1,10 +1,9 @@
 {
   "name": "svelte-test",
   "description": "testing utilities for svelte",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "transform.js",
   "scripts": {
-   
     "jest:watch": "jest --watchAll --no-cache"
   },
   "dependencies": {
@@ -22,6 +21,5 @@
     "less": "^3.9.0",
     "svelte": "^3.0.0",
     "jest": "^24.8.0"
-
   }
 }
