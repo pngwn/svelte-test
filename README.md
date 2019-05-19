@@ -2,12 +2,12 @@
 
 Testing utilities for Svelte. Currently contains only a Jest transform for Svelte components that supports Svelte Preprocessors.
 
-## `svelte-test/transform`
+## jest transform
 
-Install `jest`.
+Install `jest` and `svelte-test`.
 
 ```bash
-yarn add --dev jest # or npm i -D jest
+yarn add --dev jest svelte-test # or npm i -D jest
 ```
 
 In your jest config file add `svelte-test/transform` as a transform for Svelte components (whatever file extension you use). Add any preprocessors to `globals.svelte.preprocess`. Your Jest config file will need to be a javascript file.
