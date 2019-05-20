@@ -1,5 +1,5 @@
-const { render, fire} = require('../util.js');
-const Hello = require('../src/components/Hello.svelte');
+const { render, fire} = require('./util.js');
+const Hello = require('./src/components/Hello.svelte');
 
 test('clicking the button should change the text', async () => {
   

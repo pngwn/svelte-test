@@ -1,22 +1,33 @@
+#!/usr/bin/env node
+
 const svelte = require('svelte/compiler');
-const { execSync } = require('child_process');
-const { resolve } = require('path');
 
-module.exports = {
-  process: (source, filePath, config, s) => {
+if (process.env.jest) {
+  const cosmiconfig = require('cosmiconfig');
+  const explorer = cosmiconfig('jest');
 
-    const preprocess = resolve(__dirname, './preprocess.js');
-    
-    let processed = source;
-    if (config.globals && config.globals.svelte && config.globals.svelte.preprocess) {
-      process.env.sveltest = source;
-      processed = execSync(`node ${preprocess}`).toString();
-    }
+ explorer.search()
+  .then((result) => {
+    svelte.preprocess(
+      process.env.sveltest, 
+      result.config.globals.svelte.preprocess
+    ).then(v => {
+      process.stdout.write(v.code)
+    });
+  })
+  .catch((error) => {
+    throw Error('Something bad happened', error);
+  });
+} else {
+  const plugins = require(process.env.svelteplugins);
+  svelte.preprocess(
+    process.env.sveltest, 
+    plugins
+  ).then(v => {
+    process.stdout.write(v.code)
+  }).catch(error => {
+    throw new Error(error);
+  });
+}
+
   
-    const compiled = svelte.compile(processed, {format: 'cjs'});
-
-    return `${compiled.js.code} 
-    module.exports = exports.default;
-    `;
-  }
-};

@@ -2,7 +2,6 @@
   "name": "svelte-test",
   "description": "testing utilities for svelte",
   "version": "0.0.3",
-  "main": "transform.js",
   "scripts": {
     "jest:watch": "jest --watchAll --no-cache"
   },
@@ -17,9 +16,10 @@
     "@babel/runtime": "^7.0.0",
     "babel-jest": "^24.8.0",
     "dom-testing-library": "^4.0.1",
+    "jest": "^24.8.0",
     "just-merge": "^1.1.0",
     "less": "^3.9.0",
-    "svelte": "^3.0.0",
-    "jest": "^24.8.0"
+    "require-extension-hooks": "^0.3.3",
+    "svelte": "^3.0.0"
   }
 }
