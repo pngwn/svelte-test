@@ -5,7 +5,7 @@ Testing utilities for Svelte. Currently contains only a Jest transform for Svelt
 ---
 
 - [I am using Jest](#svelte-test/transform)
-- [I am not using Jest]
+- [I am not using Jest](#svelte-test/require)
 
 ---
 
