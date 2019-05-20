@@ -1,6 +1,6 @@
 # svelte-test
 
-Testing utilities for Svelte. Currently contains only a Jest transform for Svelte components that supports Svelte Preprocessors.
+Testing utilities for Svelte. Currently contains only a Jest transform and a require-extension-hook for Svelte components. These transforms also support svelte preprocessors.
 
 ---
 
