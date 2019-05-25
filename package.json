@@ -15,7 +15,7 @@
     "@babel/preset-env": "^7.4.4",
     "@babel/runtime": "^7.0.0",
     "babel-jest": "^24.8.0",
-    "dom-testing-library": "^4.0.1",
+    "dom-testing-library": "^4.1.1",
     "jest": "^24.8.0",
     "just-merge": "^1.1.0",
     "less": "^3.9.0",

@@ -1,9 +1,9 @@
 const svelte = require('svelte/compiler');
 const { execSync } = require('child_process');
-const { resolve } = require('path');
+const { join } = require('path');
 
-module.exports = plugins => ({content}) => {
-  const preprocess = resolve(__dirname, './preprocess.js');
+module.exports = plugins => ({ content }) => {
+  const preprocess = join(__dirname, './preprocess.js');
 
   let processed = content;
 
@@ -13,7 +13,7 @@ module.exports = plugins => ({content}) => {
     processed = execSync(`node ${preprocess}`).toString();
   }
 
-  const compiled = svelte.compile(processed, {format: 'cjs'});
+  const compiled = svelte.compile(processed, { format: 'cjs' });
 
   return `${compiled.js.code} 
   module.exports = exports.default;
