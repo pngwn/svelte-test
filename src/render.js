@@ -4,12 +4,23 @@ import {
   fireEvent,
 } from 'dom-testing-library';
 import { tick } from 'svelte';
+import { getValues } from 'jest-validate/build/condition';
 
 export * from 'dom-testing-library';
-export const fire = async (event, node, stuff) => {
-  fireEvent[event](node, stuff);
-  await tick();
-};
+
+export function updateInput(node, value) {
+  if (node.multiple) {
+    Array.from(node.children).forEach(v => {
+      if (value.includes(v.value)) {
+        v.selected = !v.selected;
+      }
+    });
+    fireEvent.change(node);
+    return;
+  }
+  node.value = value;
+  fireEvent.input(node);
+}
 
 const mountedContainers = new Set();
 

@@ -1,8 +1,8 @@
-const { render, fire } = require('./util.js');
+const { render } = require('../src/index.js');
 const Hello = require('./src/routes/index.svelte');
 
 test('clicking the button should change the text', async () => {
-  const { target, getByText } = render(Hello);
+  const { getByText } = render(Hello);
 
   const text = getByText('HIGH FIVE!');
 
