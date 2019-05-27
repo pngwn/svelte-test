@@ -2,8 +2,11 @@
   "name": "svelte-test",
   "description": "testing utilities for svelte",
   "version": "0.1.1",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "scripts": {
-    "jest:watch": "jest --watchAll --no-cache"
+    "jest:watch": "jest --watchAll --no-cache",
+    "build": "rollup -c"
   },
   "dependencies": {
     "cosmiconfig": "^5.2.0"
@@ -20,6 +23,9 @@
     "just-merge": "^1.1.0",
     "less": "^3.9.0",
     "require-extension-hooks": "^0.3.3",
+    "rollup": "^1.12.4",
+    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-node-resolve": "^5.0.0",
     "svelte": "^3.0.0"
   }
 }

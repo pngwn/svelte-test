@@ -3,8 +3,6 @@ import {
   prettyDOM,
   fireEvent,
 } from 'dom-testing-library';
-import { tick } from 'svelte';
-import { getValues } from 'jest-validate/build/condition';
 
 export * from 'dom-testing-library';
 
