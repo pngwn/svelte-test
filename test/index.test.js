@@ -1,4 +1,4 @@
-const { render } = require('../src/index.js');
+const { render, updateInput, fireEvent } = require('./util.js');
 const Hello = require('./src/routes/index.svelte');
 
 test('clicking the button should change the text', async () => {

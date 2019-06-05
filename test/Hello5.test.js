@@ -1,8 +1,8 @@
-const { render, fireEvent } = require('../src/render.js');
+const { render, updateInput, fireEvent } = require('./util.js');
 const Hello = require('./src/components/Hello.svelte');
 
 test('clicking the button should change the text', async () => {
-  const { target, getByText } = render(Hello);
+  const { getByText } = render(Hello);
 
   const button = getByText('Change');
   const button2 = getByText('Change Again');

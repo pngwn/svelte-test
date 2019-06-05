@@ -6,20 +6,6 @@ import {
 
 export * from 'dom-testing-library';
 
-export function updateInput(node, value) {
-  if (node.multiple) {
-    Array.from(node.children).forEach(v => {
-      if (value.includes(v.value)) {
-        v.selected = !v.selected;
-      }
-    });
-    fireEvent.change(node);
-    return;
-  }
-  node.value = value;
-  fireEvent.input(node);
-}
-
 const mountedContainers = new Set();
 
 export const render = (

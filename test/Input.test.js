@@ -1,4 +1,4 @@
-const { render, updateInput, fireEvent } = require('../src/render.js');
+const { render, updateInput, fireEvent } = require('./util.js');
 const Inputs = require('./src/components/Inputs.svelte');
 
 const { getByLabelText, getByText, getAllByLabelText } = render(Inputs);

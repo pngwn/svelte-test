@@ -1,4 +1,4 @@
-const { render, fireEvent } = require('../src/render.js');
+const { render, updateInput, fireEvent } = require('./util.js');
 import Hello from './src/components/Hello.svelte';
 
 test('clicking the button should change the text', async () => {
