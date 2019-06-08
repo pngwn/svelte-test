@@ -1,8 +1,4 @@
-import {
-  getQueriesForElement,
-  prettyDOM,
-  fireEvent,
-} from 'dom-testing-library';
+import { getQueriesForElement, prettyDOM } from 'dom-testing-library';
 
 export * from 'dom-testing-library';
 

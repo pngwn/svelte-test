@@ -2,19 +2,18 @@
   import { quintOut } from 'svelte/easing';
   import { crossfade, scale, fly } from 'svelte/transition';
   import { flip } from 'svelte/animate';
-  import { tick } from 'svelte';
+  import { tick, createEventDispatcher } from 'svelte';
   import { fetchStore } from './get.js';
+
+  const dispatch = createEventDispatcher();
 
   const crops = fetchStore();
   let name = '',
     latin = '',
     verdict = true,
-    formHeight,
     options = false,
-    board;
-
-  $: console.log(formHeight, transitionOpts);
-  $: transitionOpts = { y: formHeight * -1, opacity: 1 };
+    board,
+    error = false;
 
   const [send, receive] = crossfade({
     fallback: scale,
@@ -24,10 +23,28 @@
   const getIndex = id => $crops.data.findIndex(v => v.id === id);
 
   const add = e => {
+    if (!name) {
+      error = true;
+      return;
+    }
+
     crops.add({ name, latin, verdict });
     name = latin = '';
     verdict = true;
   };
+
+  function toFly(node, params) {
+    const opts = { y: node.offsetHeight * -1, opacity: 1 };
+    return fly(node, opts);
+  }
+
+  function validate() {
+    if (!name) {
+      error = true;
+    } else {
+      error = false;
+    }
+  }
 </script>
 
 <style>
@@ -136,6 +153,7 @@
     background: #333;
     color: #eee;
     padding: 5px 10px;
+    border: 5px solid transparent;
   }
 
   input:focus {
@@ -171,7 +189,7 @@
     margin: 0;
   }
 
-  form div {
+  .inputs {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -180,6 +198,9 @@
     flex-wrap: wrap;
   }
 
+  .buttons {
+    display: flex;
+  }
   form button {
     margin-top: 30px;
     display: block;
@@ -190,6 +211,11 @@
     cursor: pointer;
     padding: 10px 0px;
     font-size: 1.2em;
+    transition: background 0.2s;
+  }
+
+  form button:hover {
+    background: #338fff;
   }
 
   .controls {
@@ -209,14 +235,20 @@
     font-size: 1.2em;
     width: 100%;
     cursor: pointer;
+    transition: background 0.2s;
   }
 
   .controls button:hover {
     background: orange;
   }
 
+  .error {
+    position: absolute;
+    transform: translate(-110%, 40px);
+  }
+
   @media (max-width: 900px) {
-    form div {
+    form .inputs {
       flex-direction: column;
     }
 
@@ -229,22 +261,31 @@
 
     .emoji {
       margin-top: 10px;
+      padding-top: 40px;
+    }
+
+    .error {
+      position: absolute;
+      transform: translate(0%, 30px);
     }
   }
 </style>
 
 {#if options}
-  <form
-    on:submit|preventDefault={add}
-    bind:offsetHeight={formHeight}
-    transition:fly={transitionOpts}>
-    <div>
+  <form on:submit|preventDefault={add} transition:toFly>
+    <div class="inputs">
+
       <label class="sr-only" for="name">Common Name</label>
       <input
         id="name"
         class="new-todo"
         placeholder="Common name"
-        bind:value={name} />
+        bind:value={name}
+        on:input={validate}
+        style="border-color: {error ? 'tomato ' : 'transparent'}" />
+      {#if error}
+        <span class="error">Please enter a name for your crop</span>
+      {/if}
       <label class="sr-only" for="latin">Latin Name</label>
       <input
         id="latin"
@@ -253,8 +294,9 @@
         bind:value={latin} />
       <label for="verdict" class="emoji">
         <span class="sr-only">Verdict: Good or Bad</span>
-        <span style="opacity: {verdict ? 1 : 0.5}">😇</span>
-        <span style="opacity: {verdict ? 0.5 : 1}">😈</span>
+        <span style="opacity: {verdict ? 0.5 : 1}">😇</span>
+        <span style="opacity: {verdict ? 1 : 0.5}">😈</span>
+
       </label>
       <input
         class="sr-only"
@@ -263,7 +305,10 @@
         type="checkbox" />
     </div>
 
-    <button type="submit">Submit</button>
+    <div class="buttons">
+      <button type="submit">Submit</button>
+      <button type="button" on:click={() => (options = false)}>Close</button>
+    </div>
   </form>
 {/if}
 
@@ -272,12 +317,11 @@
   <h1>
     <span style="transform: rotateY(180deg); display: inline-block;">🌾</span>
     <span>🌾</span>
-
   </h1>
 
   <div class="left">
     <h2>good crop</h2>
-    <div class="grid-wrap">
+    <div class="grid-wrap" data-testid="good">
       {#each $crops.data.filter(({ verdict }) => !verdict) as { name, latin, id, verdict } (id)}
         <label
           in:receive={{ key: id }}
@@ -297,7 +341,7 @@
 
   <div class="right">
     <h2>bad crop</h2>
-    <div class="grid-wrap">
+    <div class="grid-wrap" data-testid="bad">
       {#each $crops.data.filter(({ verdict }) => verdict) as { name, latin, id, verdict } (id)}
         <label
           in:receive={{ key: id }}

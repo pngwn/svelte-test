@@ -1,8 +1,8 @@
-const transformLess = require('./test/less.js');
+const transformLess = require('./src/less.js');
 
 module.exports = {
   transform: {
-    '^.+\\.svelte$': './transform.js',
+    '^.+\\.svelte$': 'svelte-test/transform',
     '^.+\\.js$': 'babel-jest',
   },
   globals: {

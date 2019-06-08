@@ -1,4 +1,4 @@
-import { writable, get } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 let uuid = 0;
 
@@ -57,10 +57,18 @@ export const fetchStore = () => {
   const remove = changeId =>
     update(s => ({ ...s, data: s.data.filter(({ id }) => id !== changeId) }));
 
-  const add = ({ name, latin = 'Plantywanty Phromthegroundium', verdict }) =>
+  const add = ({ name, latin, verdict }) =>
     update(s => ({
       ...s,
-      data: [...s.data, { name, latin, verdict, id: uuid++ }],
+      data: [
+        ...s.data,
+        {
+          name,
+          latin: latin ? latin : 'Plantywanty Phromthegroundium',
+          verdict,
+          id: uuid++,
+        },
+      ],
     }));
 
   return { subscribe, set, update, getSomeCrops, reset, change, remove, add };
