@@ -1,9 +1,13 @@
 import App from '../src/App.svelte';
-import { render, cleanup, fireEvent, wait, within } from 'svelte-test';
+import {
+  render,
+  cleanup,
+  fireEvent,
+  wait,
+  within,
+  waitForElement,
+} from 'svelte-test';
 import mockData from './mockData.js';
-
-// utility function so we can wait a set amount of time
-const delay = async t => new Promise(res => setTimeout(res, t));
 
 // utility function to help updating inputs
 export function updateInput(node, value) {
@@ -135,22 +139,21 @@ test('Clicking an individual crop in a section should send it to the opposite', 
   const goodBefore = good.children.length;
   const badBefore = bad.children.length;
 
-  // Toggle an item from good to bad, we need to wait until the transition animation has complete
+  // Toggle an item from good to bad
   fireEvent.click(good.children[0]);
-  await delay(450);
 
-  // An items should have gone from good to bad,
+  // An items should have gone from good to bad
+  // we need to wait until the transition animation has complete
   // we are comparing the stored length properties to the current ones to check
-  expect(good.children.length).toBe(goodBefore - 1);
+  await (() => expect(good.children.length).toBe(goodBefore - 1));
   expect(bad.children.length).toBe(badBefore + 1);
 
   // Toggle another item from bad to good, and wait for the transition to complete
   fireEvent.click(bad.children[0]);
-  await delay(450);
 
   // Things should be back to how they were
-  expect(good.children.length).toBe(goodBefore);
-  expect(bad.children.length).toBe(badBefore);
+  await (() => expect(good.children.length).toBe(goodBefore));
+  await (() => expect(bad.children.length).toBe(badBefore));
 });
 
 test('Clicking the "Add Crop/ Hide Menu" button should show and hide the add crop form', async () => {
@@ -166,9 +169,8 @@ test('Clicking the "Add Crop/ Hide Menu" button should show and hide the add cro
   // Hide the form
   const hideFormButton = getByText('Close menu');
   hideFormButton.click();
-  await delay(450);
 
-  expect(() => getByLabelText('Common Name')).toThrow();
+  await (() => expect(() => getByLabelText('Common Name')).toThrow());
 });
 
 test('Adding a new crop and submitting the form should make it render into the document', async () => {
@@ -259,10 +261,9 @@ test('Adding a new crop without a latin name should use the default', async () =
 
   // Toggle an item
   fireEvent.click(good.children[0]);
-  await delay(450);
 
   // Show the Add Crop form
-  const showFormButton = getByText('Add a crop');
+  const showFormButton = await waitForElement(() => getByText('Add a crop'));
   await showFormButton.click();
 
   // Add a crop
@@ -278,8 +279,7 @@ test('Adding a new crop without a latin name should use the default', async () =
   // Reset the crops
   const resetCropsbutton = getByText('Reset crops');
   fireEvent.click(resetCropsbutton);
-  await delay(450);
 
-  expect(good.children.length).toBe(goodBefore);
-  expect(bad.children.length).toBe(badBefore);
+  await (() => expect(good.children.length).toBe(goodBefore));
+  await (() => expect(bad.children.length).toBe(badBefore));
 });
