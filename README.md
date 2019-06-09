@@ -17,7 +17,7 @@ Install `jest` and `svelte-test`.
 yarn add --dev jest svelte-test # or npm i -D jest
 ```
 
-In your jest config file add `svelte-test/transform` as a transform for Svelte components (whatever file extension you use). Add any preprocessors to `globals.svelte.preprocess`. Your Jest config file will need to be a javascript file.
+In your jest config file add `svelte-test/transform` as a transform for Svelte components (whatever file extension you use). Add any preprocessors to `globals.svelte.preprocess` and any custom compiler options to `globals.svelte.compilerOptions`. Your Jest config file will need to be a javascript file.
 
 The `jest.config.js` should look something like this:
 
@@ -30,6 +30,9 @@ module.exports = {
   globals: {
     svelte: {
       preprocess: preprocess(),
+      compilerOptions: {
+        accessors: true,
+      },
     },
   },
 };
@@ -99,14 +102,17 @@ const hooks = require('require-extension-hooks');
 const svelte = require('svelte-test/require');
 ```
 
-You need to pass the `svelte()` function the _absolute path_ to your preprocessor, I haven't completely thought through the API so this may change in the future. You can then `push` the svelte function as a require hook for your component file extension like so:
+You need to pass the `svelte()` function the _absolute path_ to your preprocessors as the first argument and any compiler options as the second argument, I haven't completely thought through the API so this may change in the future. You can then `push` the svelte function as a require hook for your component file extension like so:
 
 ```js
 const hooks = require('require-extension-hooks');
 const svelte = require('svelte-test/require');
+const { join } = require('path');
 
-const { resolve } = require('path');
-const extensionHook = svelte(resolve(__dirname, './less.js'));
+const preprocessors = join(__dirname, './less.js');
+const compilerOptions = { accessors: true };
+
+const extensionHook = svelte(preprocessors, compilerOptions);
 
 hooks('.svelte').push(extensionHook);
 

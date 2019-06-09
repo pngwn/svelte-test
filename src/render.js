@@ -24,7 +24,7 @@ export const render = (
 ) => {
   document.body.appendChild(target);
 
-  let ComponentConstructor = Component.default || Component;
+  const ComponentConstructor = Component.default || Component;
 
   const component = new ComponentConstructor({
     ...options,
