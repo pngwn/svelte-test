@@ -17,9 +17,20 @@ module.exports = {
       processed = execSync(`node ${preprocess}`).toString();
     }
 
-    const compiled = svelte.compile(processed, { format: 'cjs' });
+    let compilerOptions = {};
+    if (
+      config.globals &&
+      config.globals.svelte &&
+      config.globals.svelte.compilerOptions
+    ) {
+      compilerOptions = config.globals.svelte.compilerOptions;
+    }
 
-    return `${compiled.js.code} 
-    `;
+    const compiled = svelte.compile(processed, {
+      ...compilerOptions,
+      format: 'cjs',
+    });
+
+    return compiled.js.code;
   },
 };

@@ -6,25 +6,12 @@ import {
   wait,
   within,
   waitForElement,
+  updateInput,
 } from 'svelte-test';
+
 import mockData from './mockData.js';
 
-// utility function to help updating inputs
-export function updateInput(node, value) {
-  if (node.multiple) {
-    Array.from(node.children).forEach(v => {
-      if (value.includes(v.value)) {
-        v.selected = !v.selected;
-      }
-    });
-    fireEvent.change(node);
-    return;
-  }
-  node.value = value;
-  fireEvent.input(node);
-}
-
-// mocking fetch since it doesn't exist and i don't want to deal with real data
+// mocking fetch since it doesn't exist in node and i don't want to deal with real data
 const fetchMock = jest.fn();
 
 global.fetch = fetchMock.mockImplementation(n => {

@@ -4,6 +4,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+    "@testing-library/svelte": "^1.7.0",
     "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
     "less": "^3.9.0",

@@ -11,6 +11,9 @@ module.exports = {
   globals: {
     svelte: {
       preprocess: [transformLess],
+      compilerOptions: {
+        accessors: true,
+      },
     },
   },
 };

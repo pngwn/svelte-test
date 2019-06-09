@@ -4,6 +4,20 @@ export * from 'dom-testing-library';
 
 const mountedContainers = new Set();
 
+export function updateInput(node, value) {
+  if (node.multiple) {
+    Array.from(node.children).forEach(v => {
+      if (value.includes(v.value)) {
+        v.selected = !v.selected;
+      }
+    });
+    fireEvent.change(node);
+    return;
+  }
+  node.value = value;
+  fireEvent.input(node);
+}
+
 export const render = (
   Component,
   { target = document.createElement('div'), ...options } = {}

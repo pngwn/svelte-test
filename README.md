@@ -19,20 +19,19 @@ yarn add --dev jest svelte-test # or npm i -D jest
 
 In your jest config file add `svelte-test/transform` as a transform for Svelte components (whatever file extension you use). Add any preprocessors to `globals.svelte.preprocess`. Your Jest config file will need to be a javascript file.
 
-
 The `jest.config.js` should look something like this:
 
 ```js
 module.exports = {
   testPathIgnorePatterns: ['/node_modules/', '/cypress/'],
   transform: {
-    "^.+\\.svelte$": "svelte-test/transform",
+    '^.+\\.svelte$': 'svelte-test/transform',
   },
   globals: {
     svelte: {
-      preprocess: preprocess()
-    }
-  }
+      preprocess: preprocess(),
+    },
+  },
 };
 ```
 
@@ -49,16 +48,19 @@ yarn add --dev babel-jest @babel/core @babel/preset-env #or npm i ...
 Create a `babel.config.js` that looks like this:
 
 ```js
-module.exports = function (api) {
+module.exports = function(api) {
   api.cache(true);
 
   return {
     presets: [
-      ["@babel/preset-env", {
-        targets: {
-          node: 'current',
+      [
+        '@babel/preset-env',
+        {
+          targets: {
+            node: 'current',
+          },
         },
-      }]
+      ],
     ],
   };
 };
@@ -75,14 +77,14 @@ test('The component should exist', () => {
   const component = new App({ target: document.body });
 
   expect(component).toBeTruthy();
-})
+});
 ```
 
 You may now go on with your life.
 
 ## svelte-test/require
 
-If you are not using jest you can still hook into node `require`s and get back a real, *genuine*, compiled component. What you do with that component is your business.
+If you are not using jest you can still hook into node `require`s and get back a real, _genuine_, compiled component. What you do with that component is your business.
 
 Install `require-extension-hooks` and `svelte-test`:
 
@@ -90,15 +92,14 @@ Install `require-extension-hooks` and `svelte-test`:
 yarn add --dev require-extension-hooks svelte-test # or npm i ...
 ```
 
-Wherever you are doing your magic, import `require-extension-hooks` and `svelte-test/require`. 
-
+Wherever you are doing your magic, import `require-extension-hooks` and `svelte-test/require`.
 
 ```js
 const hooks = require('require-extension-hooks');
 const svelte = require('svelte-test/require');
 ```
 
-You need to pass the `svelte()` function the *absolute path* to your preprocessor, I haven't completely thought through the API so this may change in the future. You can then `push` the svelte function as a require hook for your component file extension like so:
+You need to pass the `svelte()` function the _absolute path_ to your preprocessor, I haven't completely thought through the API so this may change in the future. You can then `push` the svelte function as a require hook for your component file extension like so:
 
 ```js
 const hooks = require('require-extension-hooks');
@@ -113,8 +114,5 @@ hooks('.svelte').push(extensionHook);
 const App = require('./App.svelte');
 
 // This is now a constructor function as expected.
-const app = new App(options)
+const app = new App(options);
 ```
-
-
-
