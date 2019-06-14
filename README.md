@@ -1,6 +1,8 @@
 # svelte-test
 
-Testing utilities for Svelte. Currently contains only a Jest transform and a require-extension-hook for Svelte components. These transforms also support svelte preprocessors.
+Transforms and examples for testing Svelte components.
+
+There are details on the transforms below. You can view example test setups in [`/examples/`](https://github.com/pngwn/svelte-test/tree/master/examples/).
 
 ---
 

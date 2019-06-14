@@ -2,9 +2,8 @@
   "name": "svelte-test",
   "description": "testing utilities for svelte",
   "version": "0.3.0",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "scripts": {
+    "jest": "jest",
     "jest:watch": "jest --watchAll --no-cache",
     "build": "rollup -c"
   },
@@ -17,9 +16,9 @@
     "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/runtime": "^7.0.0",
+    "@testing-library/svelte": "^1.7.1",
     "@types/jest": "^24.0.13",
     "babel-jest": "^24.8.0",
-    "dom-testing-library": "^4.1.1",
     "jest": "^24.8.0",
     "just-merge": "^1.1.0",
     "less": "^3.9.0",

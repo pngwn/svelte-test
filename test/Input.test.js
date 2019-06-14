@@ -1,7 +1,23 @@
-const { render, updateInput, fireEvent } = require('./util.js');
+const { render, fireEvent, cleanup } = require('@testing-library/svelte');
 const Inputs = require('./src/components/Inputs.svelte');
 
+function updateInput(node, value) {
+  if (node.multiple) {
+    Array.from(node.children).forEach(v => {
+      if (value.includes(v.value)) {
+        v.selected = !v.selected;
+      }
+    });
+    fireEvent.change(node);
+    return;
+  }
+  node.value = value;
+  fireEvent.input(node);
+}
+
 const { getByLabelText, getByText, getAllByLabelText } = render(Inputs);
+
+afterAll(cleanup);
 
 test('updating textareas should work', async () => {
   const input = getByLabelText('Fill in the textarea:');

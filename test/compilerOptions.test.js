@@ -1,4 +1,4 @@
-const { render } = require('./util.js');
+const { render } = require('@testing-library/svelte');
 import Hello from './src/components/Compiler.svelte';
 
 test('accessors should work', async () => {
