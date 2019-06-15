@@ -118,7 +118,7 @@ test('a test', () => {
 
 ## Adding some DOM helpers
 
-DOM testing can get pretty tedious if you need to mount and destroy your components manually, not to mention querying the DOM and firing events to make assertions. Need to access the `default` property of the import everytime might also get annoying.
+DOM testing can get pretty tedious if you need to mount and destroy your components manually, not to mention querying the DOM and firing events to make assertions. Needing to access the `default` property of the import everytime might also get annoying.
 
 To ease this pain install `@testing-library/svelte`.
 
