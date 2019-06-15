@@ -34,7 +34,7 @@ module.exports = {
 
 To run our tests we will need to add a test script to `package.json` like so:
 
-```json
+```js
 {
   // ...otherConfig,
   "scripts": {
