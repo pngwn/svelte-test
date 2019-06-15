@@ -140,7 +140,7 @@ Now we can use `testing-library` helpers to make testing the DOM a little simple
 import { render, fireEvent, cleanup } from '@testing-library/svelte';
 import App from './App.svelte';
 
-afterEach(cleanup);
+beforeEach(cleanup);
 
 test('A DOM test', async () => {
   const { getByLabelText, getByText } = render(App, {
@@ -153,3 +153,5 @@ test('A DOM test', async () => {
   expect(() => getByText('Hello Jeremiah')).not.toThrow();
 });
 ```
+
+You can find out more about these DOM helpers in the [`testing-library` documentation](https://testing-library.com/docs/svelte-testing-library/intro).
