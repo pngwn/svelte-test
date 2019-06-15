@@ -23,6 +23,8 @@ Now we just need to make sure Svelte components are transformed into valid javas
 Create a `jest.config.js` file in the root of your application and add the following:
 
 ```js
+// jest.config.js
+
 module.exports = {
   transform: {
     '^.+\\.svelte$': 'svelte-test/transform',
@@ -35,6 +37,8 @@ module.exports = {
 To run our tests we will need to add a test script to `package.json` like so:
 
 ```js
+// package.json
+
 {
   // ...otherConfig,
   "scripts": {
@@ -77,6 +81,8 @@ yarn add --dev babel-jest @babel/core @babel/preset-env @babel/plugin-transform-
 We will need a `babel.config.js` in the the root of our project that looks like this:
 
 ```js
+// babel.config.js
+
 module.exports = function(api) {
   api.cache(true);
 
